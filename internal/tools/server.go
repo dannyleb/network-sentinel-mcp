@@ -48,6 +48,7 @@ func NewServer(src Source, info Info) *mcp.Server {
 	addAlerts(s, src)
 	addTopDestinations(s, src)
 	addExplainAlert(s, src)
+	addConfigResource(s, src, info)
 	return s
 }
 
