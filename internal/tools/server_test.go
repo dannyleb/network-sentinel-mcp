@@ -16,6 +16,7 @@ var toolInputs = map[string]any{
 	"get_recent_connections": RecentConnectionsInput{},
 	"get_alerts":             AlertsInput{},
 	"get_top_destinations":   TopDestinationsInput{},
+	"explain_alert":          ExplainAlertInput{},
 }
 
 func TestServerIdentifiesItself(t *testing.T) {
