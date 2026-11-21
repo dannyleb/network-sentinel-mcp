@@ -45,6 +45,7 @@ func NewServer(src Source, info Info) *mcp.Server {
 	}, &mcp.ServerOptions{Instructions: Instructions})
 	s.AddReceivingMiddleware(recoverPanics)
 	addRecentConnections(s, src)
+	addAlerts(s, src)
 	return s
 }
 

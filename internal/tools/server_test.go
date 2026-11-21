@@ -14,6 +14,7 @@ import (
 // entry here fails TestEveryToolIsReadOnlyAndBounded.
 var toolInputs = map[string]any{
 	"get_recent_connections": RecentConnectionsInput{},
+	"get_alerts":             AlertsInput{},
 }
 
 func TestServerIdentifiesItself(t *testing.T) {

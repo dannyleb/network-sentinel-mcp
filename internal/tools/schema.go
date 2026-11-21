@@ -32,3 +32,7 @@ func text(description string, maxLen int, pattern string) schema {
 	}
 	return s
 }
+
+func oneOf(description string, values ...string) schema {
+	return schema{"type": "string", "description": description, "enum": values}
+}
