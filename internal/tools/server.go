@@ -4,6 +4,7 @@ package tools
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
@@ -42,5 +43,20 @@ func NewServer(src Source, info Info) *mcp.Server {
 		Version:    info.Version,
 		WebsiteURL: "https://github.com/dannyleb/network-sentinel-mcp",
 	}, &mcp.ServerOptions{Instructions: Instructions})
+	s.AddReceivingMiddleware(recoverPanics)
 	return s
+}
+
+// recoverPanics turns a panic while handling one request into an error for
+// that request. Without it, a panic anywhere in a request (including inside
+// the SDK) would end the whole server process.
+func recoverPanics(next mcp.MethodHandler) mcp.MethodHandler {
+	return func(ctx context.Context, method string, req mcp.Request) (res mcp.Result, err error) {
+		defer func() {
+			if r := recover(); r != nil {
+				res, err = nil, fmt.Errorf("internal error while handling %s", method)
+			}
+		}()
+		return next(ctx, method, req)
+	}
 }

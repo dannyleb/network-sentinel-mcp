@@ -31,9 +31,14 @@ var testInfo = Info{Version: "test", SentinelURL: "http://127.0.0.1:8787", Token
 // MCP client.
 func connect(t *testing.T, src Source) *mcp.ClientSession {
 	t.Helper()
+	return connectServer(t, NewServer(src, testInfo))
+}
+
+func connectServer(t *testing.T, srv *mcp.Server) *mcp.ClientSession {
+	t.Helper()
 	ctx := context.Background()
 	serverT, clientT := mcp.NewInMemoryTransports()
-	ss, err := NewServer(src, testInfo).Connect(ctx, serverT, nil)
+	ss, err := srv.Connect(ctx, serverT, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
