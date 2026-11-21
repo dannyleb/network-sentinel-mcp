@@ -26,9 +26,13 @@ vuln:
 
 check: lint test vuln
 
-# Opens MCP Inspector against a local build. Network Sentinel must be running.
+# Opens MCP Inspector's web UI against a local build; Network Sentinel must be
+# running. Inspector doesn't pass your shell's environment on to the server, so
+# these settings are forwarded with -e when they're set.
+INSPECTOR_ENV = $(foreach v,NETWORK_SENTINEL_URL NETWORK_SENTINEL_TOKEN_FILE,$(if $($(v)),-e "$(v)=$($(v))"))
+
 inspector: build
-	npx -y $(INSPECTOR) ./bin/$(BINARY)
+	npx -y $(INSPECTOR) --web $(INSPECTOR_ENV) ./bin/$(BINARY)
 
 release:
 	rm -rf dist && mkdir -p dist
