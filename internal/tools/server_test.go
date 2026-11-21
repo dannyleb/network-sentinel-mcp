@@ -15,6 +15,7 @@ import (
 var toolInputs = map[string]any{
 	"get_recent_connections": RecentConnectionsInput{},
 	"get_alerts":             AlertsInput{},
+	"get_top_destinations":   TopDestinationsInput{},
 }
 
 func TestServerIdentifiesItself(t *testing.T) {
@@ -141,15 +142,6 @@ func TestRecoverPanics(t *testing.T) {
 	if res != nil || err == nil || !strings.Contains(err.Error(), "tools/call") {
 		t.Errorf("recoverPanics = %v, %v", res, err)
 	}
-}
-
-func sortedKeys[V any](m map[string]V) []string {
-	keys := make([]string, 0, len(m))
-	for k := range m {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	return keys
 }
 
 func jsonFields(v any) []string {
