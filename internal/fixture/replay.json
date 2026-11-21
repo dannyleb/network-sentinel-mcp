@@ -1,0 +1,38 @@
+{
+  "now": "2026-11-20T18:00:00Z",
+  "started": "2026-11-20T17:59:50Z",
+  "iface": "demo.pcap",
+  "mode": "file",
+  "totals": {"pktsOut": 900, "pktsIn": 1500, "bytesOut": 3500000, "bytesIn": 800000, "pktsLan": 0, "bytesLan": 0},
+  "activeDestinations": 2,
+  "totalDestinations": 3,
+  "series": [
+    {"t": 1748779199, "out": 1000, "in": 2000, "pktOut": 3, "pktIn": 4},
+    {"t": 1748779200, "out": 500, "in": 700, "pktOut": 2, "pktIn": 2}
+  ],
+  "flows": [
+    {"remote": "203.0.113.70", "port": 443, "proto": "TCP", "local": "10.0.0.5", "host": "backup.example.com", "hostSource": "sni",
+     "bytesOut": 3145728, "bytesIn": 65536, "pktsOut": 700, "pktsIn": 90,
+     "first": "2025-06-01T11:50:00Z", "last": "2025-06-01T11:59:59Z", "service": "HTTPS", "alerts": 1},
+    {"remote": "198.51.100.71", "port": 21, "proto": "TCP", "local": "10.0.0.5", "host": "files.example.org", "hostSource": "dns",
+     "bytesOut": 300000, "bytesIn": 20000, "pktsOut": 150, "pktsIn": 60,
+     "first": "2025-06-01T11:52:00Z", "last": "2025-06-01T11:53:00Z", "service": "FTP", "alerts": 1},
+    {"remote": "192.0.2.72", "port": 443, "proto": "TCP", "local": "10.0.0.5", "host": "status.example.net", "hostSource": "dns",
+     "bytesOut": 54272, "bytesIn": 714464, "pktsOut": 50, "pktsIn": 1350,
+     "first": "2025-06-01T10:00:00Z", "last": "2025-06-01T10:30:00Z", "service": "HTTPS", "alerts": 0}
+  ],
+  "alerts": [
+    {"id": 2, "severity": "medium", "rule": "insecure-protocol", "title": "Unencrypted protocol in use",
+     "detail": "FTP traffic to files.example.org is readable by your ISP and anyone on the path", "remote": "198.51.100.71", "host": "files.example.org",
+     "port": 21, "proto": "TCP", "first": "2025-06-01T11:52:10Z", "last": "2025-06-01T11:52:50Z", "count": 3, "key": "insecure-protocol|198.51.100.71|"},
+    {"id": 1, "severity": "medium", "rule": "large-upload", "title": "Large upload to one destination",
+     "detail": "3.0 MB sent to backup.example.com in under 10 minutes", "remote": "203.0.113.70", "host": "backup.example.com",
+     "port": 443, "proto": "TCP", "first": "2025-06-01T11:58:00Z", "last": "2025-06-01T11:58:00Z", "count": 1, "key": "large-upload|203.0.113.70|"}
+  ],
+  "alertCounts": {"medium": 2},
+  "dns": [
+    {"time": "2025-06-01T11:51:59Z", "name": "files.example.org", "type": "A", "resolver": "10.0.0.1", "answers": ["198.51.100.71"]},
+    {"time": "2025-06-01T11:49:59Z", "name": "backup.example.com", "type": "A", "resolver": "10.0.0.1", "answers": ["203.0.113.70"]}
+  ],
+  "ai": {"gateway": "", "logDir": "", "logStatus": ""}
+}
