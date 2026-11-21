@@ -79,6 +79,27 @@ func TestRunServesMCP(t *testing.T) {
 	if !strings.Contains(logs.String(), "token: file ") {
 		t.Errorf("logs should say where the token came from: %q", logs.String())
 	}
+
+	// A tool call goes all the way through: MCP -> tool -> HTTP with token -> fake sentinel.
+	res, err := cs.CallTool(context.Background(), &mcp.CallToolParams{Name: "get_recent_connections", Arguments: map[string]any{"host": "example-ai"}})
+	if err != nil || res.IsError {
+		t.Fatalf("get_recent_connections: %v %+v", err, res)
+	}
+	if text := res.Content[0].(*mcp.TextContent).Text; !strings.Contains(text, `"ip":"203.0.113.10"`) {
+		t.Errorf("unexpected result: %s", text)
+	}
+}
+
+func TestRunReportsAMissingToken(t *testing.T) {
+	sentinel := fakeSentinel(t)
+	cs, _ := start(t, []string{"-url", sentinel.URL}, noEnv)
+	res, err := cs.CallTool(context.Background(), &mcp.CallToolParams{Name: "get_recent_connections"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !res.IsError || !strings.Contains(res.Content[0].(*mcp.TextContent).Text, "--token-file") {
+		t.Errorf("want an actionable token error, got %+v", res.Content)
+	}
 }
 
 func TestRunReadsSettingsFromEnvironment(t *testing.T) {

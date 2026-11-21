@@ -44,6 +44,7 @@ func NewServer(src Source, info Info) *mcp.Server {
 		WebsiteURL: "https://github.com/dannyleb/network-sentinel-mcp",
 	}, &mcp.ServerOptions{Instructions: Instructions})
 	s.AddReceivingMiddleware(recoverPanics)
+	addRecentConnections(s, src)
 	return s
 }
 
@@ -58,5 +59,17 @@ func recoverPanics(next mcp.MethodHandler) mcp.MethodHandler {
 			}
 		}()
 		return next(ctx, method, req)
+	}
+}
+
+// readOnlyTool marks a tool as safe to call freely: it changes nothing,
+// repeating it is harmless, and it never reaches beyond this machine.
+func readOnlyTool(title string) *mcp.ToolAnnotations {
+	closedWorld := false
+	return &mcp.ToolAnnotations{
+		Title:          title,
+		ReadOnlyHint:   true,
+		IdempotentHint: true,
+		OpenWorldHint:  &closedWorld,
 	}
 }
