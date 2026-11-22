@@ -11,10 +11,11 @@ A read-only [Model Context Protocol](https://modelcontextprotocol.io) server for
 Claude Desktop or Claude Code and ask, in plain language, what is leaving your machine, what looks risky, and what
 to do about it. The server can look, but it can never touch.
 
-<!-- Demo GIF: record Claude Desktop answering "Is anything on my network worth worrying about?" against
-     Network Sentinel's `make demo`, save it as docs/demo.gif, and replace this block with:
-     ![Claude explaining a cleartext-password alert from Network Sentinel](docs/demo.gif) -->
-> 🎬 *Demo GIF coming soon.*
+![Claude Code asks network-sentinel-mcp whether anything on the network is worth worrying about, then explains a Social Security number sent in cleartext](docs/demo.gif)
+
+<sub>A real Claude Code session, redrawn as a GIF. The questions, tool calls and Claude's answers are verbatim;
+each tool result is shown as a one-line summary, and Claude was asked to keep its answers short. Network Sentinel
+is replaying its synthetic demo traffic, so every host, address and secret is made up.</sub>
 
 ## Contents
 
