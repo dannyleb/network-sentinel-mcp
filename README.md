@@ -88,8 +88,9 @@ volumes and alert details. Secrets in alerts are already redacted by Network Sen
 four digits of cards. Network Sentinel itself never sends your data to an AI model; connecting this server is
 the opt-in.
 
-Never returned at all: your machine's own LAN address, the contents of AI requests, Network Sentinel's secret
-findings beyond the redacted alert text, and the dashboard token.
+Never returned at all: the contents of AI requests, Network Sentinel's secret findings beyond the redacted alert
+text, and the dashboard token. Your machine's LAN address isn't returned as a field either, but Network Sentinel
+names it in some alert text, such as which device looked up a blocklisted domain.
 
 ## Install
 

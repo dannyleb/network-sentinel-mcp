@@ -52,7 +52,8 @@ Network Sentinel (separate repo, ../network-sentinel)
 - **Untrusted text.** Host names, DNS names and alert details come off the network. Every string from a
   snapshot goes through `clean()` (no control/bidi/zero-width characters, bounded length) before output.
 - **Minimal decoding.** `internal/sentinel/types.go` only decodes fields the tools use. The machine's own LAN
-  address (`local`), AI request bodies and secret findings are never parsed.
+  address (`local`), AI request bodies and secret findings are never parsed. Alert details can still name the LAN
+  address (a blocklist-domain alert says which device looked the name up), so don't promise it never appears.
 - **No process data.** Network Sentinel works from packets and can't say which app made a connection. Don't
   promise process filtering; suggest `lsof -nP -i @<ip>` to the user instead (see `rules.go`).
 - **Rule catalog.** `internal/tools/rules.go` explains all 17 Network Sentinel rules, written from its
