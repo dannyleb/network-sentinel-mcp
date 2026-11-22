@@ -73,6 +73,9 @@ jobs:
       - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5.6.0
         with:
           go-version: stable
+          # Published binaries are built from a clean module and build cache, so
+          # nothing restored from an earlier run can end up inside them.
+          cache: false
       - run: make release
       - run: gh release create "$GITHUB_REF_NAME" dist/* --generate-notes
         env:
