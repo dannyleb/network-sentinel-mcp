@@ -74,6 +74,8 @@ that can steer the model could also switch the monitor off. So this server can o
   data, never as instructions.
 - **Enforced by tests.** A test fails if any tool isn't annotated read-only or has an unbounded input.
 
+Found a way around any of this? [SECURITY.md](SECURITY.md) explains how to report it privately.
+
 ## What leaves your machine
 
 **This server sends nothing anywhere.** It talks only to Network Sentinel on `127.0.0.1`. That is enforced in
