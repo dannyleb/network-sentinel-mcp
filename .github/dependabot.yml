@@ -1,0 +1,27 @@
+# Weekly update PRs for Go modules and the SHA-pinned Actions in ci.yml.
+# A new version must be a week old before Dependabot proposes it, which gives
+# a compromised release time to be noticed and pulled. Security updates skip
+# that wait.
+version: 2
+updates:
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: weekly
+    allow:
+      - dependency-type: all # include indirect modules, such as golang.org/x/sys
+    cooldown:
+      default-days: 7
+    groups:
+      go-modules:
+        patterns: ["*"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ["*"]
