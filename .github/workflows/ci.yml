@@ -17,7 +17,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            go: "1.25.x" # oldest supported: the MCP SDK's minimum
+            go: "1.26.x" # oldest supported: the go directive in go.mod
           - os: ubuntu-latest
             go: stable
           - os: macos-latest

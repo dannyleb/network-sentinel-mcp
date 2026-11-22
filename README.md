@@ -95,7 +95,7 @@ findings beyond the redacted alert text, and the dashboard token.
 
 You need [Network Sentinel](https://github.com/dannyleb/network-sentinel) running on the same machine.
 
-**With Go 1.25 or newer:**
+**With Go 1.26 or newer:**
 
 ```bash
 go install github.com/dannyleb/network-sentinel-mcp/cmd/network-sentinel-mcp@latest
